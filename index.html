@@ -89,7 +89,7 @@ a{color:inherit;text-decoration:none}
 @keyframes pop{0%,51%{opacity:0;transform:translate(-50%,14px) scale(.6)}56%{opacity:1;transform:translate(-50%,-10px) scale(1.08)}61%{transform:translate(-50%,-16px) scale(1)}88%{opacity:1;transform:translate(-50%,-34px) scale(1)}100%{opacity:0;transform:translate(-50%,-42px) scale(1)}}
 .burst{position:absolute;left:50%;bottom:185px;z-index:5;width:0;height:0}
 .burst i{position:absolute;left:0;top:0;width:var(--sz,26px);height:var(--sz,26px);margin:calc(var(--sz,26px) / -2) 0 0 calc(var(--sz,26px) / -2);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18.5' fill='%23ffd23f' stroke='%23b8860b' stroke-width='2'/%3E%3Ccircle cx='14' cy='16' r='2.6' fill='%23231a10'/%3E%3Ccircle cx='26' cy='16' r='2.6' fill='%23231a10'/%3E%3Cpath d='M12 23.5q8 8.5 16 0' stroke='%23231a10' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;opacity:0;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35));animation:burst 5.2s linear infinite;animation-delay:var(--d,0s)}
-@keyframes burst{0%,51%{opacity:0;transform:translate(0,0) scale(.2) rotate(0);animation-timing-function:cubic-bezier(.12,.8,.3,1)}60%{opacity:1;transform:translate(var(--bx),var(--by)) scale(1.1) rotate(var(--br));animation-timing-function:ease-in-out}66%{transform:translate(var(--bx),calc(var(--by) - 6px)) scale(1) rotate(calc(var(--br) * .6))}76%{transform:translate(calc(var(--bx) + var(--sw)),calc(var(--by) + 6px)) scale(1) rotate(calc(var(--br) * -.3))}86%{opacity:1;transform:translate(calc(var(--bx) - var(--sw)),calc(var(--by) + 18px)) scale(1) rotate(calc(var(--br) * .3))}100%{opacity:0;transform:translate(var(--bx),calc(var(--by) + 34px)) scale(.9) rotate(0)}}
+@keyframes burst{0%,51%{opacity:0;transform:translate(0,0) scale(.3) rotate(0);animation-timing-function:cubic-bezier(.2,.8,.35,1)}53%{opacity:1}62%,88%{opacity:1;transform:translate(var(--bx),var(--by)) scale(1) rotate(var(--br));animation-timing-function:ease-in}100%{opacity:0;transform:translate(var(--bx),var(--by)) scale(1) rotate(var(--br))}}
 /* 紙吹雪：勢いよく飛んでから、ひらひら落ちる */
 .burst i.cf{width:var(--w,7px);height:var(--h,12px);margin:calc(var(--h,12px) / -2) 0 0 calc(var(--w,7px) / -2);background:var(--c);border-radius:1px;filter:none;animation:burstcf 5.2s cubic-bezier(.2,.6,.4,1) infinite;animation-delay:var(--d,0s)}
 @keyframes burstcf{0%,51%{opacity:0;transform:translate(0,0) rotate(0) rotateX(0)}53%{opacity:1}60%{opacity:1;transform:translate(var(--bx),var(--by)) rotate(var(--br)) rotateX(360deg)}100%{opacity:0;transform:translate(calc(var(--bx) * 1.2),calc(var(--by) + 150px)) rotate(calc(var(--br) * 2)) rotateX(1080deg)}}
@@ -104,12 +104,11 @@ a{color:inherit;text-decoration:none}
 .fv-pt .l3 .p small{font-family:var(--sans);font-size:.6em}
 .fv-pt .l3 .w b{font-family:var(--en);font-size:1.15em;color:var(--gold-l)}
 .fv-pt .nt{font-size:14px;color:rgba(255,255,255,.65);margin-top:10px}
-/* 金の流れ星：中心(left/top)のまわりを --a0 から --a1 まで回り、半径 --r の円弧をなぞる */
+/* 金の流れ星（頭が進行方向。--ang の向きに --dist だけ流れる） */
 .meteors{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-.meteors i{position:absolute;width:0;height:0;opacity:0;animation:orbit linear infinite}
-.meteors b{position:absolute;left:calc(var(--r) - var(--len));top:-1px;width:var(--len);height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(242,223,176,0),rgba(242,223,176,.95));transform-origin:100% 50%;transform:rotate(90deg)}
-.meteors b::after{content:"";position:absolute;right:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#fff6d8;box-shadow:0 0 8px 3px rgba(242,223,176,.9),0 0 22px 8px rgba(214,176,106,.45)}
-@keyframes orbit{0%{opacity:0;transform:rotate(var(--a0))}3%{opacity:1}20%{opacity:1}26%,100%{opacity:0;transform:rotate(var(--a1))}}
+.meteors i{position:absolute;width:var(--len,120px);height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(242,223,176,0),rgba(242,223,176,.95));transform-origin:100% 50%;opacity:0;animation:meteor linear infinite}
+.meteors i::after{content:"";position:absolute;right:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#fff6d8;box-shadow:0 0 8px 3px rgba(242,223,176,.9),0 0 22px 8px rgba(214,176,106,.45)}
+@keyframes meteor{0%{opacity:0;transform:rotate(var(--ang)) translateX(0)}3%{opacity:1}20%{opacity:1}26%,100%{opacity:0;transform:rotate(var(--ang)) translateX(var(--dist))}}
 .fv-copy{text-align:center;margin-top:38px;font-family:var(--sans);font-weight:900;font-size:clamp(22px,6.3vw,40px);line-height:1.6;letter-spacing:.04em;text-shadow:0 2px 12px rgba(0,0,0,.4)}
 .fv-copy em{font-style:normal;color:var(--gold-l)}
 .fv-sub{text-align:center;font-size:17px;line-height:1.95;margin-top:14px;color:rgba(255,255,255,.82)}
@@ -291,7 +290,7 @@ a{color:inherit;text-decoration:none}
 
   <!-- ===== FV ===== -->
   <header class="fv" id="fv">
-    <div class="meteors" data-meteor="16"></div>
+    <div class="meteors" data-meteor="12"></div>
     <div class="spark" data-spark="26"></div>
     <div class="fv-bar"><b>家具のソムリエ</b><span>楽天市場店</span></div>
     <div class="fv-head">
@@ -329,7 +328,7 @@ a{color:inherit;text-decoration:none}
       </svg>
     </div>
     <div class="fv-body">
-      <p class="fv-copy">暮らしの<em>コンシェルジュ</em>に<br>あなたの一票を</p>
+      <p class="fv-copy"><em>家具のソムリエ</em>に<br>あなたの一票を</p>
       <p class="fv-sub">家具のソムリエを<br>「ショップ・オブ・ザ・イヤー2026」に。<br>投票と応援メッセージを<br>よろしくお願いいたします。</p>
       <div class="fv-cta">
         <a class="vote" data-vote href="#">家具のソムリエに投票する<span class="arw">▶</span></a>
@@ -521,13 +520,12 @@ a{color:inherit;text-decoration:none}
     }
   });
 
-  // 金の流れ星（円の中心・半径・回る角度・周期をばらす。右回りなので弧の上側を下向きに流れる）
+  // 金の流れ星（右上から左下へ。位置・長さ・周期をばらす）
   document.querySelectorAll('[data-meteor]').forEach(function(box){
     for (var i = 0; i < +box.dataset.meteor; i++) {
-      var m = document.createElement('i'), a0 = -150 + Math.random() * 110;
-      m.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (10 + Math.random() * 60) + '%;--r:' + (160 + Math.random() * 200) + 'px;--len:' + (70 + Math.random() * 80) + 'px' +
-        ';--a0:' + a0 + 'deg;--a1:' + (a0 + 45 + Math.random() * 40) + 'deg;animation-duration:' + (5 + Math.random() * 5) + 's;animation-delay:' + (-Math.random() * 10) + 's';
-      m.appendChild(document.createElement('b'));
+      var m = document.createElement('i');
+      m.style.cssText = 'left:' + (20 + Math.random() * 90) + '%;top:' + (Math.random() * 55) + '%;--len:' + (80 + Math.random() * 90) + 'px;--ang:' + (138 + Math.random() * 12) + 'deg;--dist:' + (260 + Math.random() * 220) + 'px' +
+        ';animation-duration:' + (5 + Math.random() * 5) + 's;animation-delay:' + (-Math.random() * 10) + 's';
       box.appendChild(m);
     }
   });
@@ -540,7 +538,7 @@ a{color:inherit;text-decoration:none}
     for (var i = 0; i < n; i++) {
       var b = document.createElement('i'), a = Math.PI * (1.1 + 0.8 * (i + Math.random() * 0.6 - 0.3) / (n - 1)), r = 110 + Math.random() * 80;
       b.style.cssText = '--sz:' + (24 + Math.random() * 14) + 'px;--bx:' + (Math.cos(a) * r) + 'px;--by:' + (Math.sin(a) * r * 0.6 - 20) + 'px;--br:' + (Math.random() * 50 - 25) + 'deg' +
-        ';--sw:' + (4 + Math.random() * 6) + 'px;--d:' + (Math.random() * 0.12) + 's';
+        ';--d:' + (Math.random() * 0.08) + 's';
       box.appendChild(b);
     }
     for (var j = 0; j < nc; j++) {
