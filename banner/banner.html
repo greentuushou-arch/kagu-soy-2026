@@ -69,5 +69,17 @@ body{font-family:"Noto Sans JP",sans-serif;color:#fff;-webkit-print-color-adjust
     <div class="meta"><p class="dl">投票は<b>11.30</b>(月)09:59まで</p><span class="cta">投票はこちら<i>▶</i></span></div>
   </div>
 </div>
+<script>
+// ?w=2000 のように幅を指定すると、縦横比を保ったまま拡大する（ページサイズもそれに合わせる）
+(function(){
+  var m = location.search.match(/w=(\d+)/);
+  if (!m) return;
+  var Z = +m[1] / 1600, W = Math.ceil(1600 * Z), H = Math.ceil(311 * Z);
+  document.querySelector('.bn').style.zoom = Z;
+  var st = document.createElement('style');
+  st.textContent = '@page{size:' + W + 'px ' + H + 'px;margin:0}html,body{width:' + W + 'px;height:' + H + 'px}';
+  document.head.appendChild(st);
+})();
+</script>
 </body>
 </html>
